@@ -1,7 +1,7 @@
 <script>
    function previewFile(){
-       var preview = document.querySelector('img'); //selects the query named img
-       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var preview = document.querySelector('img');
+       var file    = document.querySelector('input[type=file]').files[0];
        var reader  = new FileReader();
 
        reader.onloadend = function () {
@@ -9,11 +9,12 @@
        }
 
        if (file) {
-           reader.readAsDataURL(file); //reads the data as a URL
+           reader.readAsDataURL(file);
+           document.getElementById("previewImg").innerHTML = reader.result;
        } else {
            preview.src = "";
        }
   }
 
-  previewFile();  //calls the function named previewFile()
+  previewFile();
   </script>
