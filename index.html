@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Illustrated Dictionary</title>
-  <script src="scripts\script.js"></script>
-</head>
-<body>
-  <h1>This is the upload page</h1>
-  <a href="imageTagging.html"><button>Upload</button></a><br>
-
-  <input type="file" onchange="previewFile()"><br>
-  <img src="" id="previewImg" height="200" alt="Image preview...">
-</body>
+  <head>
+    <title>Illustrated Dictionary</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts\script.js"></script>
+  </head>
+  <body>
+    <h1>This is the upload page</h1>
+    <div id="outerBox">
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="file"/>
+      <br/>
+      <div id="preview"><img src="" alt="Preview"/></div>
+    </form>
+  </div>
+  </body>
 </html>
