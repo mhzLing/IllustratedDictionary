@@ -8,10 +8,23 @@
   </head>
   <body>
     <h1>This is the upload page</h1>
-    <form method="post" enctype="multipart/form-data">
-      <input type="file" name="file"/>
-      <br/>
-      <div id="preview"><img src="" alt="Preview"/></div>
-    </form>
+    <div class="horizontal">
+
+      <!--user can choose image to submit-->
+      <div class=box>
+        <form method="post" enctype="multipart/form-data">
+          <input type="file" name="file"/>
+          <br/>
+          <div id="preview"><img src="" alt="Preview"/></div>
+        </form>
+      </div>
+
+      <!--submitted image is saved and displayed when page reloads-->
+      <div class=box>
+        <h3>SubmittedImage</h3>
+        <div id="submitted"><img src=""/></div>
+      </div>
+
+    </div>
   </body>
 </html>
