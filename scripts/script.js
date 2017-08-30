@@ -13,12 +13,24 @@ function readURL(input)
     reader.readAsDataURL(input.files[0]);
   }
 }
+
+//if "Submit" button is pressed, the image will be submitted and saved
+function submitPressed()
+{
+  //uploads the preview image to the submit image
+  $('#submitted img').attr('src', localStorage.getItem('lastImage'));
+  //saves the submitted image to another localstorage called savedImage
+  localStorage.setItem('savedImage', localStorage.getItem('lastImage'));
+}
+
 $(document).on('change','input[type="file"]',function()
 {
   readURL(this);
 });
 
 //what to do as soon as page loads
-$(document).ready(function() {
-  $('#submitted img').attr('src', localStorage.getItem('lastImage'));
+$(document).ready(function()
+{
+  //savedImage is loaded
+  $('#submitted img').attr('src', localStorage.getItem('savedImage'));
 });
