@@ -2,9 +2,47 @@
 <html>
   <head>
     <title>Tag your image</title>
+    <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/smoothness/jquery-ui.css">
+    <link type ="text/css" rel="stylesheet" href="stylesheets\stylesheetTagging.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts\taggingScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
   </head>
+
+  <body>
+    <div id='main_panel'>
+
+      <div style='margin: auto; width: 600px;'>
+        <div id='image_panel' >
+          <img src='images\tagging.jpg' id='imageMap'  />
+          <div id='mapper' ><img src='images\save.png' onclick='openDialog()' /></div>
+
+          <div id="planetmap">
+
+          </div>
+          <div id='form_panel'>
+            <div class='row'>
+              <div class='label'>Title</div><div class='field'><input type='text' id='title' /></div>
+            </div>
+            <div class='row'>
+              <div class='label'></div>
+              <div class='field'>
+                <input type='button' value='Add Tag' onclick='addTag()' />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background: none repeat scroll 0 0 #C7C7C8;
+                 border: 1px solid #AEAEAE;
+                 clear: both;
+                 margin: 20px auto;
+                 padding: 20px 0;
+                 text-align: center;
+                 width: 600px;">
+                <input type="button" value="Show Tags" onclick="showTags()" />
+                <input type="button" value="Hide Tags" onclick="hideTags()" />
+      </div>
+    </div>
+  </body>
 </html>
-<body>
-  <h1>Tag your image</h1>
-  <img src="images\house.jpg">
-</body>
