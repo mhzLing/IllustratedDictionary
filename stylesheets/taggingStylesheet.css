@@ -20,6 +20,9 @@ body{
     position:absolute;
 }
 
+
+
+
 #main_panel{
     margin: auto;
     padding: 10px;
@@ -54,13 +57,13 @@ body{
     width:600px;
     position:relative;
 }
-
 #image_panel img{
     left:0;top:-102px;
     max-width: 600px;
     overflow: hidden;
 
 }
+
 
 #form_panel .label{
     float:left;
@@ -88,11 +91,13 @@ body{
     margin-top:5px;
 }
 
+
 #info_panel{
     padding:10px;
     margin:20px 0;
     background:#eee;
 }
+
 
 input[type='button']{
     background: none repeat scroll 0 0 #2769C4;

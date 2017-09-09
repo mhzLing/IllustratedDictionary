@@ -92,8 +92,8 @@ $(".tagged").live("mouseout",function(){
 });
 
 $(".tagged").live("click",function(){
-    $(this).find(".tagged_box").html("<img src='images\del.png' class='openDialog' value='Delete' onclick='deleteTag(this)' />\n\
-<img src='images\save.png' onclick='editTag(this);' value='Save' />");
+    $(this).find(".tagged_box").html("<img src='images/del.png' class='openDialog' value='Delete' onclick='deleteTag(this)' />\n\
+<img src='images/save.png' onclick='editTag(this);' value='Save' />");
 
     var img_scope_top = $("#imageMap").offset().top + $("#imageMap").height() - $(this).find(".tagged_box").height();
     var img_scope_left = $("#imageMap").offset().left + $("#imageMap").width() - $(this).find(".tagged_box").width();
