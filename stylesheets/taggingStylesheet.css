@@ -3,7 +3,7 @@ body{
     font-family:"Arial";
 }
 #mapper{
-    border:5px solid #EEE;
+    border:2px solid #EEE;
     width:50px;
     height:50px;
     min-width:10px;
@@ -100,9 +100,9 @@ body{
 
 
 input[type='button']{
-    background: none repeat scroll 0 0 #2769C4;
-    border: 1px solid #CFCFCF;
-    color: #FFFFFF;
+    background: none repeat scroll 0 0 #CEA899;
+    border: 1px solid #000000;
+    color: #000000;
     font-weight: bold;
     height: 30px;
     padding: 5px;

@@ -73,7 +73,7 @@ $(document).ready(function() {
 $(".tagged").live("mouseover",function(){
     if($(this).find(".openDialog").length == 0){
         $(this).find(".tagged_box").css("display","block");
-        $(this).css("border","5px solid #EEE");
+        $(this).css("border","2px solid #EEE");
 
         $(this).find(".tagged_title").css("display","block");
     }
@@ -130,7 +130,7 @@ var openDialog = function(){
 
 var showTags = function(){
     $(".tagged_box").css("display","block");
-    $(".tagged").css("border","5px solid #EEE");
+    $(".tagged").css("border","2px solid #EEE");
     $(".tagged_title").css("display","block");
 };
 
