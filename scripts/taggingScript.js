@@ -113,7 +113,7 @@ var addTag = function(){
 
 
     $('#planetmap').append('<div class="tagged"  style="width:'+pos_width+';height:'+
-        pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div   class="tagged_box" style="width:'+pos_width+';height:'+
+        pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
         pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
         $("#title").val()+'</div></div>');
 
@@ -150,8 +150,13 @@ var editTag = function(obj){
     $(obj).parent().parent().find(".tagged_title").css("display","none");
     $(obj).parent().html('');
 
-}
+};
 
 var deleteTag = function(obj){
     $(obj).parent().parent().remove();
+};
+
+var saveTags = function() {
+  var save = document.getElementById('planetmap');
+  console.log(save.innerHTML);
 };
