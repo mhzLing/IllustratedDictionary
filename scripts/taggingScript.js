@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  //test
+  $('#planetmap').append(localStorage.getItem('savedTags'));
 
   $('#imageDiv img').attr('src', localStorage.getItem('savedImage'));
 
@@ -157,6 +159,11 @@ var deleteTag = function(obj){
 };
 
 var saveTags = function() {
+  localStorage.setItem('savedTags', document.getElementById('planetmap').innerHTML);
+  console.log(localStorage.getItem('savedTags'));
+  /*
   var save = document.getElementById('planetmap');
   console.log(save.innerHTML);
+  $('#planetmap').append(localStorage.getItem('savedTags'));
+  */
 };
