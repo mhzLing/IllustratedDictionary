@@ -20,6 +20,8 @@ conn.on('open',function() {
 
   app.use(logger('dev'));
 
+  app.use(express.static(__dirname + '/public')); //static middleware
+
   app.get("/", function(req,res){
     //renders a multipart/form-data form
     res.render("home");
@@ -31,7 +33,7 @@ conn.on('open',function() {
     });
 
     fs.createReadStream("./images/" + req.file.filename)
-      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.send("success")})})
+      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.render('imageTagging')})})
       .on("err", function(){res.send("Error uploading image")})
       .pipe(writestream);
   });
