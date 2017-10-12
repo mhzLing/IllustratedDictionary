@@ -40,13 +40,17 @@ conn.on('open',function() {
     });
 
     fs.createReadStream("./images/" + req.file.filename)
-      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.redirect(req.file.originalname)})})
+      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.redirect("http://localhost:3000/imageTagging")})})
       .on("err", function(){res.send("Error uploading image")})
       .pipe(writestream);
   });
 
+  //test
+  app.get("/imageTagging",function(req,res){
+    res.render("imageTagging");
+  });
+
   app.get("/:filename",function(req,res){
-    //res.render("imageTagging");
     var readstream = gfs.createReadStream({filename: req.params.filename});
     readstream.on("error", function(err){
       res.send("No image found with that title");
