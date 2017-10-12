@@ -2,7 +2,8 @@ $(document).ready(function() {
   //test
   $('#planetmap').append(localStorage.getItem('savedTags'));
 
-  $('#imageDiv img').attr('src', localStorage.getItem('savedImage'));
+//  $('#imageDiv img').attr('src', localStorage.getItem('savedImage'));
+
 
     $("#imageMap").click(function(e){
 

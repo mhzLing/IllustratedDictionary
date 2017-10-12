@@ -16,6 +16,13 @@ var logger = require('morgan');
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
+  /*
+  var pictureSchema = mongoose.Schema({
+    _id = String
+  });
+  var picture = mongoose.model('picture',pictureSchema);
+  */
+
   var gfs = Grid(conn.db, mongoose.mongo);
 
   app.use(logger('dev'));
@@ -33,9 +40,18 @@ conn.on('open',function() {
     });
 
     fs.createReadStream("./images/" + req.file.filename)
-      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.render('imageTagging')})})
+      .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.redirect(req.file.originalname)})})
       .on("err", function(){res.send("Error uploading image")})
       .pipe(writestream);
+  });
+
+  app.get("/:filename",function(req,res){
+    //res.render("imageTagging");
+    var readstream = gfs.createReadStream({filename: req.params.filename});
+    readstream.on("error", function(err){
+      res.send("No image found with that title");
+    });
+    readstream.pipe(res);
   });
 
   /*
