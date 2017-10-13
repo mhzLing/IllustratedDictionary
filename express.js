@@ -14,6 +14,8 @@ var Grid = require('gridfs-stream');
 
 var logger = require('morgan');
 
+var imgFileName="";
+
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
   /*
@@ -35,6 +37,7 @@ conn.on('open',function() {
   });
 
   app.post("/", upload.single("avatar"), function(req, res, next){
+    imgFileName = req.file.originalname;
     var writestream = gfs.createWriteStream({
       filename: req.file.originalname
     });
@@ -48,6 +51,10 @@ conn.on('open',function() {
   //test
   app.get("/imageTagging",function(req,res){
     res.render("imageTagging");
+  });
+
+  app.get('/ajaxURL', function (req, res) {
+    res.send(imgFileName);
   });
 
   app.get("/:filename",function(req,res){

@@ -2,7 +2,12 @@ $(document).ready(function() {
   //test
   $('#planetmap').append(localStorage.getItem('savedTags'));
 
-    var img = $("<img id='imageMap' />").attr('src', 'http://localhost:3000/bunnies.jpg');
+  var imgFileName = "";
+  $.ajax({url: '/ajaxURL'}).done(function (data) {
+    imgFileName = 'http://localhost:3000/' + data;
+  });
+
+    var img = $("<img id='imageMap' />").attr('src', imgFileName);
     $("#imageDiv").append(img);
 
 
