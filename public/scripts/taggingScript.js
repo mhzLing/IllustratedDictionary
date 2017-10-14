@@ -2,14 +2,13 @@ $(document).ready(function() {
   //test
   $('#planetmap').append(localStorage.getItem('savedTags'));
 
-  var imgFileName = "";
+  var baseUrl = "http://localhost:3000/";
+  var imgFileName = "a";
   $.ajax({url: '/ajaxURL'}).done(function (data) {
-    imgFileName = 'http://localhost:3000/' + data;
-  });
-
+    imgFileName = baseUrl.concat(data);
     var img = $("<img id='imageMap' />").attr('src', imgFileName);
     $("#imageDiv").append(img);
-
+  });
 
     $("#imageMap").click(function(e){
 
