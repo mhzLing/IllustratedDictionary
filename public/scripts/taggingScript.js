@@ -6,8 +6,7 @@ $(document).ready(function() {
   var imgFileName = "a";
   $.ajax({url: '/ajaxURL'}).done(function (data) {
     imgFileName = baseUrl.concat(data);
-    var img = $("<img id='imageMap' />").attr('src', imgFileName);
-    $("#imageDiv").append(img);
+    $('#imageMap').attr('src', imgFileName);
   });
 
     $("#imageMap").click(function(e){
