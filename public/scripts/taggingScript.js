@@ -1,10 +1,10 @@
 $(document).ready(function() {
-  //test
-  $('#planetmap').append(localStorage.getItem('savedTags'));
+  
+  //$('#planetmap').append(localStorage.getItem('savedTags'));
 
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
-  $.ajax({url: '/ajaxURL'}).done(function (data) {
+  $.ajax({url: '/getImage'}).done(function (data) {
     imgFileName = baseUrl.concat(data);
     $('#imageMap').attr('src', imgFileName);
   });
@@ -164,8 +164,21 @@ var deleteTag = function(obj){
 };
 
 var saveTags = function() {
-  localStorage.setItem('savedTags', document.getElementById('planetmap').innerHTML);
-  console.log(localStorage.getItem('savedTags'));
+  var tags = document.getElementById('planetmap').innerHTML;
+
+  $.ajax({
+    url: '/sendTags',
+    contentType: "application/json; charset=utf-8",
+    type: 'GET',
+    cache: false,
+    data: { 'tags': tags },
+    success: function() {
+      console.log("oki");
+    }
+  });
+
+  //localStorage.setItem('savedTags', document.getElementById('planetmap').innerHTML);
+  //console.log(localStorage.getItem('savedTags'));
   /*
   var save = document.getElementById('planetmap');
   console.log(save.innerHTML);

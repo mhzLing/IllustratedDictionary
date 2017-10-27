@@ -18,12 +18,12 @@ var imgFileName="";
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
-  /*
-  var pictureSchema = mongoose.Schema({
-    _id = String
+
+  var tagSchema = mongoose.Schema({
+    tags: String
   });
-  var picture = mongoose.model('picture',pictureSchema);
-  */
+
+  var Tags = mongoose.model('Tags', tagSchema);
 
   var gfs = Grid(conn.db, mongoose.mongo);
 
@@ -53,8 +53,23 @@ conn.on('open',function() {
     res.render("imageTagging");
   });
 
-  app.get('/ajaxURL', function (req, res) {
+  app.get('/getImage', function (req, res) {
     res.send(imgFileName);
+  });
+
+  app.get('/sendTags', function (req, res) {
+    var tagData = new Tags({ tags: req.query.tags });
+    Tags.find({},function(err,data) {
+      if(!err)
+      {
+        console.log(data);
+      } else {throw err;}
+    });
+  /*  mongoose.model('Tags').find(function(err, data) {
+      res.send(data);
+    });
+    */
+
   });
 
   app.get("/:filename",function(req,res){
@@ -64,18 +79,6 @@ conn.on('open',function() {
     });
     readstream.pipe(res);
   });
-
-  /*
-  app.get('/books/:bookTitle/:name', function(req, res) {
-    var bookData = {title: req.params.bookTitle , author: req.params.name};
-    res.render('bookView.ejs',{book: bookData});
-  });
-
-  app.get('/books', function(req, res){
-    res.send('A list of books should go here');
-  });
-  */
-
 
   app.get('*', function(req,res){
     res.send('Hello World');
