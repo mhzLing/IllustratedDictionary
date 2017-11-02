@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+
   //$('#planetmap').append(localStorage.getItem('savedTags'));
 
   var baseUrl = "http://localhost:3000/";
@@ -166,22 +166,16 @@ var deleteTag = function(obj){
 var saveTags = function() {
   var tags = document.getElementById('planetmap').innerHTML;
 
+  $.ajax({url: '/removeOldTags'}).done(function (data) {
+    console.log("REMOVED OLD TAGS");
+  });
+
+
   $.ajax({
     url: '/sendTags',
     contentType: "application/json; charset=utf-8",
     type: 'GET',
     cache: false,
     data: { 'tags': tags },
-    success: function() {
-      console.log("oki");
-    }
   });
-
-  //localStorage.setItem('savedTags', document.getElementById('planetmap').innerHTML);
-  //console.log(localStorage.getItem('savedTags'));
-  /*
-  var save = document.getElementById('planetmap');
-  console.log(save.innerHTML);
-  $('#planetmap').append(localStorage.getItem('savedTags'));
-  */
 };

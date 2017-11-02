@@ -15,15 +15,16 @@ var Grid = require('gridfs-stream');
 var logger = require('morgan');
 
 var imgFileName="";
+var tagId="";
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
 
   var tagSchema = mongoose.Schema({
-    tags: String
+    tagString: String
   });
 
-  var Tags = mongoose.model('Tags', tagSchema);
+  var Tag = mongoose.model('Tag', tagSchema);
 
   var gfs = Grid(conn.db, mongoose.mongo);
 
@@ -58,18 +59,22 @@ conn.on('open',function() {
   });
 
   app.get('/sendTags', function (req, res) {
-    var tagData = new Tags({ tags: req.query.tags });
-    Tags.find({},function(err,data) {
-      if(!err)
-      {
-        console.log(data);
-      } else {throw err;}
+    var tagData = new Tag({ tagString: req.query.tags });
+    tagData.save(function(error, uploadTag) {
+      tagId = uploadTag.id;
+      if (error) {
+        console.error(error);
+      }
     });
-  /*  mongoose.model('Tags').find(function(err, data) {
-      res.send(data);
-    });
-    */
+  });
 
+
+  app.get('/removeOldTags', function(req, res) {
+    var tagResponse = Tag.remove({'_id': tagId }, function(err) {
+      if(err) {
+        console.error(err);
+      }
+    });
   });
 
   app.get("/:filename",function(req,res){
