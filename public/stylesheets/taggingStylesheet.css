@@ -105,3 +105,12 @@ input[type='button']{
     height: 30px;
     padding: 5px;
 }
+
+select{
+    background: none repeat scroll 0 0 #CEA899;
+    border: 1px solid #000000;
+    color: #000000;
+    font-weight: bold;
+    height: 30px;
+    padding: 5px;
+}

@@ -166,15 +166,16 @@ var deleteTag = function(obj){
 var saveTags = function() {
   var tags = document.getElementById('planetmap').innerHTML;
 
+  /*
   $.ajax({url: '/removeOldTags'}).done(function (data) {
     console.log("REMOVED OLD TAGS");
   });
-
+  */
 
   $.ajax({
     url: '/sendTags',
     contentType: "application/json; charset=utf-8",
-    type: 'GET',
+    type: 'POST',
     cache: false,
     data: { 'tags': tags },
   });

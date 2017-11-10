@@ -15,7 +15,8 @@ var Grid = require('gridfs-stream');
 var logger = require('morgan');
 
 var imgFileName="";
-var tagId="";
+//var tagId="";
+var tagId = new mongoose.Types.ObjectId;
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
@@ -58,7 +59,7 @@ conn.on('open',function() {
     res.send(imgFileName);
   });
 
-  app.get('/sendTags', function (req, res) {
+  app.post('/sendTags', function (req, res) {
     var tagData = new Tag({ tagString: req.query.tags });
     tagData.save(function(error, uploadTag) {
       tagId = uploadTag.id;
@@ -68,7 +69,7 @@ conn.on('open',function() {
     });
   });
 
-
+  /*
   app.get('/removeOldTags', function(req, res) {
     var tagResponse = Tag.remove({'_id': tagId }, function(err) {
       if(err) {
@@ -76,6 +77,9 @@ conn.on('open',function() {
       }
     });
   });
+  */
+
+
 
   app.get("/:filename",function(req,res){
     var readstream = gfs.createReadStream({filename: req.params.filename});
