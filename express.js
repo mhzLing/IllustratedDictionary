@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var request = require('request');
+
 var fs = require("fs");
 
 var multer = require('multer');
@@ -78,6 +80,15 @@ conn.on('open',function() {
     });
   });
   */
+  app.get('/getTranslateData/test', function (req, res) {
+    request('https://kamusi.org/preD/termTranslate/hello/eng/por_pt', function(error, response, body)
+    {
+      var json = JSON.parse(body);
+      var strJSON = JSON.stringify(json[0].source_concept.word_list[0]);
+      console.log(strJSON);
+    });
+
+  });
 
 
 

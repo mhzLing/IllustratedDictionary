@@ -180,3 +180,18 @@ var saveTags = function() {
     data: { 'tags': tags },
   });
 };
+
+var testing = function() {
+
+  $.ajax({
+    url: '/getTranslateData/test',
+    contentType: "application/json; charset=utf-8",
+    type: 'GET',
+  });
+
+/*
+  $.ajax({url: '/getTranslateData/test'}).done(function (data) {
+    $('body').replaceWith(data);
+  }); */
+
+};
