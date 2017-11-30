@@ -80,13 +80,16 @@ conn.on('open',function() {
     });
   });
   */
-  app.get('/getTranslateData/test', function (req, res) {
+  app.post('/TranslateData', function (req, res) {
+    var wordData = req;
+    console.log(wordData);
     request('https://kamusi.org/preD/termTranslate/hello/eng/por_pt', function(error, response, body)
     {
       var json = JSON.parse(body);
       var strJSON = JSON.stringify(json[0].source_concept.word_list[0]);
       console.log(strJSON);
     });
+
 
   });
 

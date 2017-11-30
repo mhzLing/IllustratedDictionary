@@ -1,7 +1,8 @@
+var wordArr = [];
+
 $(document).ready(function() {
 
   //$('#planetmap').append(localStorage.getItem('savedTags'));
-
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
   $.ajax({url: '/getImage'}).done(function (data) {
@@ -165,7 +166,13 @@ var deleteTag = function(obj){
 
 var saveTags = function() {
   var tags = document.getElementById('planetmap').innerHTML;
-
+  var htmlArr = document.getElementsByClassName('tagged_title');
+  wordArr.length = htmlArr.length;
+  for(var i = 0; i < htmlArr.length; i++)
+  {
+    wordArr[i] = htmlArr[i].innerHTML;
+    console.log(wordArr[i]);
+  }
   /*
   $.ajax({url: '/removeOldTags'}).done(function (data) {
     console.log("REMOVED OLD TAGS");
@@ -181,14 +188,19 @@ var saveTags = function() {
   });
 };
 
-var testing = function() {
+var translateWords = function() {
 
-  $.ajax({
-    url: '/getTranslateData/test',
-    contentType: "application/json; charset=utf-8",
-    type: 'GET',
-  });
-
+  for(var i = 0; i < wordArr.length; i++)
+  {
+    console.log("i = " + i + "\n");
+    $.ajax({
+      url: '/TranslateData',
+      contentType: "application/json; charset=utf-8",
+      type: 'POST',
+      cache: false,
+      data: wordArr[i],
+    });
+  }
 /*
   $.ajax({url: '/getTranslateData/test'}).done(function (data) {
     $('body').replaceWith(data);
