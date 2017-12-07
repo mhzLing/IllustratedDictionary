@@ -182,7 +182,7 @@ var saveTags = function() {
   $.ajax({
     url: '/sendTags',
     contentType: "application/json; charset=utf-8",
-    type: 'POST',
+    type: 'GET',
     cache: false,
     data: { 'tags': tags },
   });
@@ -196,9 +196,9 @@ var translateWords = function() {
     $.ajax({
       url: '/TranslateData',
       contentType: "application/json; charset=utf-8",
-      type: 'POST',
+      type: 'GET',
       cache: false,
-      data: wordArr[i],
+      data: { 'word': wordArr[i]},
     });
   }
 /*

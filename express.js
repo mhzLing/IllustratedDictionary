@@ -61,7 +61,7 @@ conn.on('open',function() {
     res.send(imgFileName);
   });
 
-  app.post('/sendTags', function (req, res) {
+  app.get('/sendTags', function (req, res) {
     var tagData = new Tag({ tagString: req.query.tags });
     tagData.save(function(error, uploadTag) {
       tagId = uploadTag.id;
@@ -80,8 +80,8 @@ conn.on('open',function() {
     });
   });
   */
-  app.post('/TranslateData', function (req, res) {
-    var wordData = req;
+  app.get('/TranslateData', function (req, res) {
+    var wordData = req.query.word;
     console.log(wordData);
     request('https://kamusi.org/preD/termTranslate/hello/eng/por_pt', function(error, response, body)
     {
