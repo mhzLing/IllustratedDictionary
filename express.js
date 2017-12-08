@@ -81,13 +81,20 @@ conn.on('open',function() {
   });
   */
   app.get('/TranslateData', function (req, res) {
-    var wordData = req.query.word;
-    console.log(wordData);
-    request('https://kamusi.org/preD/termTranslate/hello/eng/por_pt', function(error, response, body)
+    var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
+    console.log(url);
+    request(url, function(error, response, body)
     {
       var json = JSON.parse(body);
-      var strJSON = JSON.stringify(json[0].source_concept.word_list[0]);
-      console.log(strJSON);
+      if(json[0].target_terms[0] == undefined)
+      {
+        console.log("Undefined");
+      }
+      else
+      {
+        var strJSON = JSON.stringify(json[0].target_terms[0].lemma_accent);
+        console.log(strJSON);
+      }
     });
 
 

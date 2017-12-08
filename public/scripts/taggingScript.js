@@ -189,7 +189,8 @@ var saveTags = function() {
 };
 
 var translateWords = function() {
-
+  var from = $('#from').val();
+  var to = $('#to').val();
   for(var i = 0; i < wordArr.length; i++)
   {
     console.log("i = " + i + "\n");
@@ -198,7 +199,7 @@ var translateWords = function() {
       contentType: "application/json; charset=utf-8",
       type: 'GET',
       cache: false,
-      data: { 'word': wordArr[i]},
+      data: { 'word': wordArr[i], 'from': from, 'to': to },
     });
   }
 /*
