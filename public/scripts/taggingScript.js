@@ -173,11 +173,10 @@ var saveTags = function() {
     wordArr[i] = htmlArr[i].innerHTML;
     console.log(wordArr[i]);
   }
-  /*
+
   $.ajax({url: '/removeOldTags'}).done(function (data) {
     console.log("REMOVED OLD TAGS");
   });
-  */
 
   $.ajax({
     url: '/sendTags',
@@ -187,6 +186,12 @@ var saveTags = function() {
     data: { 'tags': tags },
   });
 };
+/*
+var deleteTags = function() {
+  $.ajax({url: '/removeOldTags'}).done(function (data) {
+    console.log("REMOVED OLD TAGS");
+  });
+}*/
 
 var translateWords = function() {
   var from = $('#from').val();

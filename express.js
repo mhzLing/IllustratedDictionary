@@ -69,17 +69,19 @@ conn.on('open',function() {
         console.error(error);
       }
     });
+    res.send('Sent tags');
   });
 
-  /*
+
   app.get('/removeOldTags', function(req, res) {
     var tagResponse = Tag.remove({'_id': tagId }, function(err) {
       if(err) {
         console.error(err);
       }
     });
+    res.send('delete tags');
   });
-  */
+
   app.get('/TranslateData', function (req, res) {
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
     console.log(url);
