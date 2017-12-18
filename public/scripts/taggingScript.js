@@ -1,5 +1,14 @@
 var wordArr = [];
 
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
 $(document).ready(function() {
 
   //$('#planetmap').append(localStorage.getItem('savedTags'));
@@ -72,7 +81,6 @@ $(document).ready(function() {
 
     });
 
-
 });
 
 
@@ -129,7 +137,7 @@ var addTag = function(){
     $("#title").val('');
     $("#form_panel").hide();
 
-
+    showConcepts();
 };
 
 var openDialog = function(){
@@ -212,4 +220,13 @@ var translateWords = function() {
     $('body').replaceWith(data);
   }); */
 
+};
+
+var showConcepts = function() {
+    $(".modal").css("display","block");
+};
+
+// When the user clicks on <span> (x), close the modal
+var closeModal = function() {
+    $(".modal").css("display","none");
 };
