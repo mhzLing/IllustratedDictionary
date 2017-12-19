@@ -1,7 +1,7 @@
 var wordArr = [];
 
 // Get the modal
-var modal = document.getElementById('myModal');
+var modal = document.getElementById('conceptModal');
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -119,6 +119,8 @@ $(".tagged").live("click",function(){
 });
 
 var addTag = function(){
+  if( $("#title").val() != "" )
+  {
     var position = $('#mapper').position();
 
 
@@ -133,11 +135,39 @@ var addTag = function(){
         pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
         $("#title").val()+'</div></div>');
 
+    //ajax to send word over
+    var from = $('#from').val();
+    var to = $('#to').val();
+
+    $.ajax({
+      url: '/sendTerm',
+      contentType: "application/json; charset=utf-8",
+      type: 'GET',
+      cache: false,
+      data: { 'term': $("#title").val(), 'from': from, 'to': to},
+    }).done(function (data) {
+      console.log("ajax function done");
+      console.log(data);
+      console.log(JSON.parse(data));
+      for(var i = 0; i < data.length; i++)
+      {
+        console.log(data[i]);
+      }
+    });
+
+    //close form panel and reset input box
     $("#mapper").hide();
     $("#title").val('');
     $("#form_panel").hide();
 
     showConcepts();
+  }
+  else
+  {
+    $("#mapper").hide();
+    $("#title").val('');
+    $("#form_panel").hide();
+  }
 };
 
 var openDialog = function(){

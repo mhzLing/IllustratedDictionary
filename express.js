@@ -82,6 +82,22 @@ conn.on('open',function() {
     res.send('delete tags');
   });
 
+  app.get('/sendTerm', function (req,res) {
+    var sourceConceptArr = [];
+    var url = 'https://kamusi.org/preD/termTranslate/' + req.query.term + '/' + req.query.from + '/' + req.query.to;
+    request(url, function(error, response, body)
+    {
+      var json = JSON.parse(body);
+      sourceConceptArr = new Array(json.length);
+      console.log(sourceConceptArr.length);
+      for(var i = 0; i < json.length; i++)
+      {
+        sourceConceptArr[i] = json[i].source_concept;
+      }
+    });
+    res.send(JSON.stringify(sourceConceptArr));
+  });
+
   app.get('/TranslateData', function (req, res) {
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
     console.log(url);
@@ -98,8 +114,6 @@ conn.on('open',function() {
         console.log(strJSON);
       }
     });
-
-
   });
 
 
