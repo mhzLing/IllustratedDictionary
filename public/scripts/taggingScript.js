@@ -138,7 +138,7 @@ var addTag = function(){
     //ajax to send word over
     var from = $('#from').val();
     var to = $('#to').val();
-
+    var word = $("#title").val();
     $.ajax({
       url: '/sendTerm',
       contentType: "application/json; charset=utf-8",
@@ -146,8 +146,36 @@ var addTag = function(){
       cache: false,
       data: { 'term': $("#title").val(), 'from': from, 'to': to},
     }).done(function (data) {
-      console.log("ajax function done");
-      console.log(data);
+      for(var i = 0; i < data.length; i++)
+      {
+        if(data[i].source_concept.gloss == "")
+        {
+          //console.log("No definition found.")
+          $(".modal-content").append(
+            '<div class="wnsynset" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                ' term: ' + word + ', part of speech: undefined' +
+              '</h4>' +
+              '<p class="" style="padding: 0 0 0 10px;">' +
+                '<strong>definition:</strong> No definition found' +
+              '</p>' +
+            '</div>');
+        }
+        else
+        {
+          //console.log(sourceConceptArr[i]);
+          $(".modal-content").append(
+            '<div class="wnsynset" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                ' term: ' + word + ', part of speech: ' + data[i].target_concept.ss_type +
+              '</h4>' +
+              '<p class="" style="padding: 0 0 0 10px;">' +
+                '<strong>definition:</strong> ' + data[i].source_concept.gloss +
+              '</p>' +
+            '</div>');
+        }
+
+      }
     });
 
     //close form panel and reset input box
