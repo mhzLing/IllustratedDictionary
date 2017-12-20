@@ -94,8 +94,9 @@ conn.on('open',function() {
       {
         sourceConceptArr[i] = json[i].source_concept;
       }
+      res.send(json);
     });
-    res.send(JSON.stringify(sourceConceptArr));
+    //res.send(JSON.stringify(sourceConceptArr));
   });
 
   app.get('/TranslateData', function (req, res) {

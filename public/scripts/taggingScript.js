@@ -148,11 +148,6 @@ var addTag = function(){
     }).done(function (data) {
       console.log("ajax function done");
       console.log(data);
-      console.log(JSON.parse(data));
-      for(var i = 0; i < data.length; i++)
-      {
-        console.log(data[i]);
-      }
     });
 
     //close form panel and reset input box
