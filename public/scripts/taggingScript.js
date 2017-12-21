@@ -148,11 +148,12 @@ var addTag = function(){
     }).done(function (data) {
       for(var i = 0; i < data.length; i++)
       {
+        var definitionId = "definition" + i;
         if(data[i].source_concept.gloss == "")
         {
           //console.log("No definition found.")
           $(".modal-content").append(
-            '<div class="wnsynset" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
               '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
                 ' term: ' + word + ', part of speech: undefined' +
               '</h4>' +
@@ -165,7 +166,7 @@ var addTag = function(){
         {
           //console.log(sourceConceptArr[i]);
           $(".modal-content").append(
-            '<div class="wnsynset" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
               '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
                 ' term: ' + word + ', part of speech: ' + data[i].target_concept.ss_type +
               '</h4>' +
@@ -282,4 +283,9 @@ var showConcepts = function() {
 // When the user clicks on <span> (x), close the modal
 var closeModal = function() {
     $(".modal").css("display","none");
+};
+
+var chooseDefinition = function(item) {
+  var clickedId = $(item).attr('id');
+  console.log(clickedId);
 };
