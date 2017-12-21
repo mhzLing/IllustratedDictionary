@@ -83,12 +83,17 @@ conn.on('open',function() {
   });
 
   app.get('/sendTerm', function (req,res) {
+    console.log(req.query.term);
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.term + '/' + req.query.from + '/' + req.query.to;
     request(url, function(error, response, body)
     {
       var json = JSON.parse(body);
       res.send(json);
     });
+  });
+
+  app.get('/saveConcept', function (req,res) {
+    console.log(req.query.concept);
   });
 
   app.get('/TranslateData', function (req, res) {

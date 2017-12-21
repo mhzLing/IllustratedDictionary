@@ -1,4 +1,5 @@
 var wordArr = [];
+var conceptArr = [];
 
 // Get the modal
 var modal = document.getElementById('conceptModal');
@@ -146,8 +147,11 @@ var addTag = function(){
       cache: false,
       data: { 'term': $("#title").val(), 'from': from, 'to': to},
     }).done(function (data) {
+      conceptArr.length = data.length;
       for(var i = 0; i < data.length; i++)
       {
+        conceptArr[i] = data[i];
+        console.log(conceptArr[i]);
         var definitionId = "definition" + i;
         if(data[i].source_concept.gloss == "")
         {
@@ -168,7 +172,7 @@ var addTag = function(){
           $(".modal-content").append(
             '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
               '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
-                ' term: ' + word + ', part of speech: ' + data[i].target_concept.ss_type +
+                ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
               '</h4>' +
               '<p class="" style="padding: 0 0 0 10px;">' +
                 '<strong>definition:</strong> ' + data[i].source_concept.gloss +
@@ -283,9 +287,18 @@ var showConcepts = function() {
 // When the user clicks on <span> (x), close the modal
 var closeModal = function() {
     $(".modal").css("display","none");
+    $(".modal-content").empty();
 };
 
 var chooseDefinition = function(item) {
   var clickedId = $(item).attr('id');
-  console.log(clickedId);
+  var index = clickedId.charAt(clickedId.length - 1);
+  console.log(conceptArr[index].english_concept.synset_ID_3_1);
+  $.ajax({
+    url: '/saveConcept',
+    contentType: "application/json; charset=utf-8",
+    type: 'GET',
+    cache: false,
+    data: { 'concept': conceptArr[index].english_concept.synset_ID_3_1},
+  });
 };
