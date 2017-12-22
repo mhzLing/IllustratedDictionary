@@ -256,7 +256,7 @@ var saveTags = function() {
       contentType: false,
       type: 'GET',
       cache: false,
-      data: { 'tags': tagArr[i]},
+      data: { 'tags': tagArr[i].outerHTML},
     });
   }
 };
