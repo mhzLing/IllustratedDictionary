@@ -61,7 +61,8 @@ conn.on('open',function() {
     res.send(imgFileName);
   });
 
-  app.get('/sendTags', function (req, res) {
+  app.get('/saveTags', function (req, res) {
+    console.log(req.query.tags);
     var tagData = new Tag({ tagString: req.query.tags });
     tagData.save(function(error, uploadTag) {
       tagId = uploadTag.id;
@@ -96,6 +97,7 @@ conn.on('open',function() {
     console.log(req.query.concept);
   });
 
+/* TRANSLATING BY WORDS
   app.get('/TranslateData', function (req, res) {
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
     console.log(url);
@@ -113,6 +115,7 @@ conn.on('open',function() {
       }
     });
   });
+  */
 
 
 

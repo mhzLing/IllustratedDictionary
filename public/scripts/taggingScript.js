@@ -1,5 +1,6 @@
 var wordArr = [];
 var conceptArr = [];
+var tagArr = [];
 
 // Get the modal
 var modal = document.getElementById('conceptModal');
@@ -156,7 +157,7 @@ var addTag = function(){
         if(data[i].source_concept.gloss == "")
         {
           //console.log("No definition found.")
-          $(".modal-content").append(
+          $(".concept-content").append(
             '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
               '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
                 ' term: ' + word + ', part of speech: undefined' +
@@ -169,7 +170,7 @@ var addTag = function(){
         else
         {
           //console.log(sourceConceptArr[i]);
-          $(".modal-content").append(
+          $(".concept-content").append(
             '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
               '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
                 ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
@@ -231,26 +232,33 @@ var deleteTag = function(obj){
 };
 
 var saveTags = function() {
-  var tags = document.getElementById('planetmap').innerHTML;
+  var tagArr = document.getElementsByClassName('tagged');
+  /* TRANSLATING BY WORDS
   var htmlArr = document.getElementsByClassName('tagged_title');
+
   wordArr.length = htmlArr.length;
   for(var i = 0; i < htmlArr.length; i++)
   {
     wordArr[i] = htmlArr[i].innerHTML;
     console.log(wordArr[i]);
   }
-
+*/
+  /* remove tags
   $.ajax({url: '/removeOldTags'}).done(function (data) {
     console.log("REMOVED OLD TAGS");
   });
-
-  $.ajax({
-    url: '/sendTags',
-    contentType: "application/json; charset=utf-8",
-    type: 'GET',
-    cache: false,
-    data: { 'tags': tags },
-  });
+  */
+  for(var i = 0; i < tagArr.length; i++)
+  {
+    console.log(tagArr[i]);
+    $.ajax({
+      url: '/saveTags',
+      contentType: false,
+      type: 'GET',
+      cache: false,
+      data: { 'tags': tagArr[i]},
+    });
+  }
 };
 /*
 var deleteTags = function() {
@@ -287,7 +295,7 @@ var showConcepts = function() {
 // When the user clicks on <span> (x), close the modal
 var closeModal = function() {
     $(".modal").css("display","none");
-    $(".modal-content").empty();
+    $(".concept-content").empty();
 };
 
 var chooseDefinition = function(item) {
