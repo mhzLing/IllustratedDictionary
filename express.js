@@ -17,14 +17,15 @@ var Grid = require('gridfs-stream');
 var logger = require('morgan');
 
 var imgFileName="";
-//var tagId="";
-var tagId = new mongoose.Types.ObjectId;
+
+var currentImageId = "";
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
 
   var tagSchema = mongoose.Schema({
-    tagString: String
+    tagString: String,
+    imageId: String
   });
 
   var Tag = mongoose.model('Tag', tagSchema);
@@ -50,6 +51,8 @@ conn.on('open',function() {
       .on("end", function(){fs.unlink("./images/"+ req.file.filename, function(err){res.redirect("http://localhost:3000/imageTagging")})})
       .on("err", function(){res.send("Error uploading image")})
       .pipe(writestream);
+
+    currentImageId = writestream.id.toString();
   });
 
   //test
@@ -63,7 +66,10 @@ conn.on('open',function() {
 
   app.get('/saveTags', function (req, res) {
     console.log(req.query.tags);
-    var tagData = new Tag({ tagString: req.query.tags });
+    var tagData = new Tag({
+      tagString: req.query.tags,
+      imageId: currentImageId
+    });
     tagData.save(function(error, uploadTag) {
       tagId = uploadTag.id;
       if (error) {
@@ -74,8 +80,8 @@ conn.on('open',function() {
   });
 
 
-  app.get('/removeOldTags', function(req, res) {
-    var tagResponse = Tag.remove({'_id': tagId }, function(err) {
+  app.get('/removeTags', function(req, res) {
+    var tagResponse = Tag.remove({'imageId': currentImageId }, function(err) {
       if(err) {
         console.error(err);
       }

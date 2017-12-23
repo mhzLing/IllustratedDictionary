@@ -243,29 +243,31 @@ var saveTags = function() {
     console.log(wordArr[i]);
   }
 */
-  /* remove tags
-  $.ajax({url: '/removeOldTags'}).done(function (data) {
-    console.log("REMOVED OLD TAGS");
+
+  // remove tags associated to current image,
+  // then after delete ajax is done, it runs save ajax
+  $.ajax({
+    url: '/removeTags',
+  }).done(function (data) {
+    console.log("REMOVED TAGS");
+  //saving tags to database
+    for(var i = 0; i < tagArr.length; i++)
+    {
+      console.log(tagArr[i]);
+      $.ajax({
+        url: '/saveTags',
+        contentType: false,
+        type: 'GET',
+        cache: false,
+        data: { 'tags': tagArr[i].outerHTML},
+      });
+    }
   });
-  */
-  for(var i = 0; i < tagArr.length; i++)
-  {
-    console.log(tagArr[i]);
-    $.ajax({
-      url: '/saveTags',
-      contentType: false,
-      type: 'GET',
-      cache: false,
-      data: { 'tags': tagArr[i].outerHTML},
-    });
-  }
+
+
+
+
 };
-/*
-var deleteTags = function() {
-  $.ajax({url: '/removeOldTags'}).done(function (data) {
-    console.log("REMOVED OLD TAGS");
-  });
-}*/
 
 var translateWords = function() {
   var from = $('#from').val();
