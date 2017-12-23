@@ -18,21 +18,22 @@
         <p><b>Choose definition:</b></p>
         <div class="concept-content">
         </div>
-      </div>
-    </div>
+      </div> <!-- end of Modal content -->
+    </div> <!-- end of Modal -->
 
+    <!-- Main_panel -->
     <div id='main_panel'>
 
-      <div style='margin: auto; width: 600px;'>
+      <div style='margin: auto; width: 600px;'> <!-- Where the image tagging takes place -->
         <div id='image_panel' >
-          <div id='imageDiv'><img src='' id='imageMap'  /></div>
-          <div id='mapper' ><img src='images\save.png' onclick='openDialog()' /></div>
+          <div id='imageDiv'><img src='' id='imageMap'  /></div> <!-- Image is placed here -->
+          <div id='mapper' ><img src='images\save.png' onclick='openDialog()' /></div> <!-- Resizable box for tags -->
 
+          <!-- This is where the tags are saved -->
           <div id="planetmap">
-
           </div>
 
-          <div id='form_panel'>
+          <div id='form_panel'> <!-- Prompt that pops up so user can place a word for the tag -->
             <div class='row'>
               <div class='label'>Title</div><div class='field'><input type='text' id='title' /></div>
             </div>
@@ -40,13 +41,12 @@
               <div class='label'></div>
               <div class='field'>
                 <input type='button' id='addTag' value='Add Tag' onclick='addTag()' />
-
               </div>
             </div>
-          </div>
-        </div>
+          </div> <!-- end of prompt -->
 
-      </div>
+        </div> <!-- end of image_panel -->
+      </div> <!-- End of margin -->
       <div style="background: none repeat scroll 0 0 #AB3939;
                  border: 1px solid #FFFFFF;
                  clear: both;
@@ -56,11 +56,9 @@
                  width: 600px;">
                 <input type="button" value="Show Tags" onclick="showTags()" />
                 <input type="button" value="Hide Tags" onclick="hideTags()" />
-                <!-- test -->
-                <input type="button" value="Show Concepts" id="myBtn" onclick="showConcepts()"/>
-
                 <input type="button" value="Save Tags" onclick="saveTags()" />
 
+                <!--
                 <div class="dropdown">
                   <button class="dropbtn">Vocabulary Games</button>
                   <div class="dropdown-content">
@@ -69,9 +67,8 @@
                     <a href="#">Hard</a>
                   </div>
                 </div>
-      </div>
-
-    <!-- Test -->
+                -->
+    </div> <!-- end of main_panel -->
 
     <div style="background: none repeat scroll 0 0 #AB3939;
                border: 1px solid #FFFFFF;
@@ -98,7 +95,6 @@
                 </select>
 
                 <input type="button" value="Translate" onclick="translateWords()" />
-                <input type="button" value="Delete Tags" onclick="deleteTags()" />
               </div>
     </div>
 
