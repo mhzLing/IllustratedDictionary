@@ -47,6 +47,8 @@
 
         </div> <!-- end of image_panel -->
       </div> <!-- End of margin -->
+
+      <!-- First bar of options -->
       <div style="background: none repeat scroll 0 0 #AB3939;
                  border: 1px solid #FFFFFF;
                  clear: both;
@@ -68,9 +70,9 @@
                   </div>
                 </div>
                 -->
-    </div> <!-- end of main_panel -->
-
-    <div style="background: none repeat scroll 0 0 #AB3939;
+      </div> <!-- end of first option bar -->
+      <!-- Second bar of option -->
+      <div style="background: none repeat scroll 0 0 #AB3939;
                border: 1px solid #FFFFFF;
                clear: both;
                margin: 20px auto;
@@ -80,6 +82,7 @@
 
 
               <div class="dropdown">
+                <!-- dropdown menu of languages to translate from -->
                 <label style="font-weight: bold; color: #D69A33">From:</label>
                 <select id='from'>
                   <option value='eng_3_0'>English</option>
@@ -87,6 +90,7 @@
                   <option value='ita'>Italian</option>
                 </select>
 
+                <!-- dropdown menu of languages to translate to -->
                 <label style="font-weight: bold; color: #D69A33">To:</label>
                 <select id='to'>
                   <option value='eng_3_0'>English</option>
@@ -96,7 +100,9 @@
 
                 <input type="button" value="Translate" onclick="translateWords()" />
               </div>
-    </div>
+
+        </div> <!-- end of second bar -->
+    </div> <!-- end of main panel -->
 
   </body>
 </html>

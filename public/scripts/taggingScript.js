@@ -231,6 +231,7 @@ var deleteTag = function(obj){
     $(obj).parent().parent().remove();
 };
 
+// Save all tags present in the image panel to database.
 var saveTags = function() {
   var tagArr = document.getElementsByClassName('tagged');
   /* TRANSLATING BY WORDS
@@ -264,9 +265,6 @@ var saveTags = function() {
     }
   });
 
-
-
-
 };
 
 var translateWords = function() {
@@ -290,6 +288,8 @@ var translateWords = function() {
 
 };
 
+// Modal box that pops up when user creates a tag.
+// Modal box contains definitions for the tag word.
 var showConcepts = function() {
     $(".modal").css("display","block");
 };
@@ -300,6 +300,8 @@ var closeModal = function() {
     $(".concept-content").empty();
 };
 
+// All definition for the word of the tag is displayed in the modal box.
+// User can select a definition to associate with the specific tag.
 var chooseDefinition = function(item) {
   var clickedId = $(item).attr('id');
   var index = clickedId.charAt(clickedId.length - 1);
