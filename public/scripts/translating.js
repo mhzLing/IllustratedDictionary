@@ -21,7 +21,8 @@ $(document).ready(function() {
     $('#imageMap').attr('src', imgFileName);
   });
 
-    $("#imageMap").click(function(e){
+  /*
+  $("#imageMap").click(function(e){
 
 
         var image_left = $(this).offset().left;
@@ -82,6 +83,7 @@ $(document).ready(function() {
         $("#mapper").draggable({ containment: "parent" });
 
     });
+    */
 
 });
 
@@ -109,6 +111,7 @@ $(".tagged").live("mouseout",function(){
 
 });
 
+/*
 $(".tagged").live("click",function(){
     $(this).find(".tagged_box").html("<img src='images/del.png' class='openDialog' value='Delete' onclick='deleteTag(this)' />\n\
 <img src='images/save.png' onclick='editTag(this);' value='Save' />");
@@ -119,7 +122,8 @@ $(".tagged").live("click",function(){
     $(this).draggable({ containment:[$("#imageMap").offset().left,$("#imageMap").offset().top,img_scope_left,img_scope_top]  });
 
 });
-
+*/
+/*
 var addTag = function(){
   if( $("#title").val() != "" )
   {
@@ -198,10 +202,12 @@ var addTag = function(){
     $("#form_panel").hide();
   }
 };
-
+*/
+/*
 var openDialog = function(){
     $("#form_panel").fadeIn("slow");
 };
+*/
 
 var showTags = function(){
     $(".tagged_box").css("display","block");
@@ -214,7 +220,7 @@ var hideTags = function(){
     $(".tagged").css("border","none");
     $(".tagged_title").css("display","none");
 };
-
+/*
 var editTag = function(obj){
 
     $(obj).parent().parent().draggable( 'disable' );
@@ -234,16 +240,7 @@ var deleteTag = function(obj){
 // Save all tags present in the image panel to database.
 var saveTags = function() {
   var tagArr = document.getElementsByClassName('tagged');
-  /* TRANSLATING BY WORDS
-  var htmlArr = document.getElementsByClassName('tagged_title');
 
-  wordArr.length = htmlArr.length;
-  for(var i = 0; i < htmlArr.length; i++)
-  {
-    wordArr[i] = htmlArr[i].innerHTML;
-    console.log(wordArr[i]);
-  }
-*/
 
   // remove tags associated to current image,
   // then after delete ajax is done, it runs save ajax
@@ -266,6 +263,7 @@ var saveTags = function() {
   });
 
 };
+*/
 
 var translateWords = function() {
   var from = $('#from').val();
@@ -287,7 +285,7 @@ var translateWords = function() {
   }); */
 
 };
-
+/*
 // Modal box that pops up when user creates a tag.
 // Modal box contains definitions for the tag word.
 var showConcepts = function() {
@@ -314,3 +312,10 @@ var chooseDefinition = function(item) {
     data: { 'concept': conceptArr[index].english_concept.synset_ID_3_1},
   });
 };
+
+var goToImageTranslating = function() {
+  $.ajax({
+    url: '/imageTranslating',
+  });
+};
+*/

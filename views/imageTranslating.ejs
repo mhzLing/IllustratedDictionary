@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Edit Tags</title>
+    <title>Translation</title>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets\taggingStylesheet.css">
-    <script type="text/javascript" src="scripts\tagging.js"></script>
+    <script type="text/javascript" src="scripts\translating.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets\style.css">
   </head>
   <body>
@@ -58,8 +58,7 @@
                  width: 600px;">
                 <input type="button" value="Show Tags" onclick="showTags()" />
                 <input type="button" value="Hide Tags" onclick="hideTags()" />
-                <input type="button" value="Save Tags" onclick="saveTags()" />
-                <input type="button" value="Translate Tags" onclick="location.href='http://localhost:3000/imageTranslating';"/>
+                <input type="button" value="Edit Tags" onclick="location.href='http://localhost:3000/imageTagging';" />
 
                 <!--
                 <div class="dropdown">
@@ -72,6 +71,37 @@
                 </div>
                 -->
       </div> <!-- end of first option bar -->
+      <!-- Second bar of option -->
+      <div style="background: none repeat scroll 0 0 #AB3939;
+               border: 1px solid #FFFFFF;
+               clear: both;
+               margin: 20px auto;
+               padding: 20px 0;
+               text-align: center;
+               width: 600px;">
+
+
+              <div class="dropdown">
+                <!-- dropdown menu of languages to translate from -->
+                <label style="font-weight: bold; color: #D69A33">From:</label>
+                <select id='from'>
+                  <option value='eng_3_0'>English</option>
+                  <option value='spa'>Spanish</option>
+                  <option value='ita'>Italian</option>
+                </select>
+
+                <!-- dropdown menu of languages to translate to -->
+                <label style="font-weight: bold; color: #D69A33">To:</label>
+                <select id='to'>
+                  <option value='eng_3_0'>English</option>
+                  <option value='spa'>Spanish</option>
+                  <option value='ita'>Italian</option>
+                </select>
+
+                <input type="button" value="Translate" onclick="translateWords()" />
+              </div>
+
+        </div> <!-- end of second bar -->
     </div> <!-- end of main panel -->
 
   </body>

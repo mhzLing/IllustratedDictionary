@@ -60,6 +60,10 @@ conn.on('open',function() {
     res.render("imageTagging");
   });
 
+  app.get("/imageTranslating",function(req,res){
+    res.render("imageTranslating");
+  });
+
   app.get('/getImage', function (req, res) {
     res.send(imgFileName);
   });
