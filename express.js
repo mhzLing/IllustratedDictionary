@@ -93,6 +93,12 @@ conn.on('open',function() {
     res.send('delete tags');
   });
 
+  app.get('/loadTags', function(req, res) {
+    Tag.find({ imageId: currentImageId}, function(err,tagData) {
+      res.send(tagData);
+    });
+  });
+
   app.get('/sendTerm', function (req,res) {
     console.log(req.query.term);
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.term + '/' + req.query.from + '/' + req.query.to;

@@ -13,12 +13,19 @@ var span = document.getElementsByClassName("close")[0];
 
 $(document).ready(function() {
 
-  //$('#planetmap').append(localStorage.getItem('savedTags'));
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
   $.ajax({url: '/getImage'}).done(function (data) {
     imgFileName = baseUrl.concat(data);
     $('#imageMap').attr('src', imgFileName);
+  });
+
+  //load tags from the corresponding image id
+  $.ajax({url: '/loadTags'}).done(function (data) {
+    for(var i = 0; i < data.length; i++)
+    {
+      $('#planetmap').append(data[i].tagString);
+    }
   });
 
     $("#imageMap").click(function(e){
@@ -154,33 +161,64 @@ var addTag = function(){
         conceptArr[i] = data[i];
         console.log(conceptArr[i]);
         var definitionId = "definition" + i;
-        if(data[i].source_concept.gloss == "")
+        if(from == 'eng_3_0')
         {
-          //console.log("No definition found.")
-          $(".concept-content").append(
-            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
-                ' term: ' + word + ', part of speech: undefined' +
-              '</h4>' +
-              '<p class="" style="padding: 0 0 0 10px;">' +
-                '<strong>definition:</strong> No definition found' +
-              '</p>' +
-            '</div>');
+          if(data[i].source_concept.definition == "")
+          {
+            //console.log("No definition found.")
+            $(".concept-content").append(
+              '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+                '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                  ' term: ' + word + ', part of speech: undefined' +
+                '</h4>' +
+                '<p class="" style="padding: 0 0 0 10px;">' +
+                  '<strong>definition:</strong> No definition found' +
+                '</p>' +
+              '</div>');
+          }
+          else
+          {
+            //console.log(sourceConceptArr[i]);
+            $(".concept-content").append(
+              '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+                '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                  ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
+                '</h4>' +
+                '<p class="" style="padding: 0 0 0 10px;">' +
+                  '<strong>definition:</strong> ' + data[i].source_concept.definition +
+                '</p>' +
+              '</div>');
+            }
         }
         else
         {
-          //console.log(sourceConceptArr[i]);
-          $(".concept-content").append(
-            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
-                ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
-              '</h4>' +
-              '<p class="" style="padding: 0 0 0 10px;">' +
-                '<strong>definition:</strong> ' + data[i].source_concept.gloss +
-              '</p>' +
-            '</div>');
+          if(data[i].source_concept.gloss == "")
+          {
+            //console.log("No definition found.")
+            $(".concept-content").append(
+              '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+                '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                  ' term: ' + word + ', part of speech: undefined' +
+                '</h4>' +
+                '<p class="" style="padding: 0 0 0 10px;">' +
+                  '<strong>definition:</strong> No definition found' +
+                '</p>' +
+              '</div>');
+          }
+          else
+          {
+            //console.log(sourceConceptArr[i]);
+            $(".concept-content").append(
+              '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+                '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
+                  ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
+                '</h4>' +
+                '<p class="" style="padding: 0 0 0 10px;">' +
+                  '<strong>definition:</strong> ' + data[i].source_concept.gloss +
+                '</p>' +
+              '</div>');
+          }
         }
-
       }
     });
 

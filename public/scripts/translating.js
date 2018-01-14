@@ -2,18 +2,8 @@ var wordArr = [];
 var conceptArr = [];
 var tagArr = [];
 
-// Get the modal
-var modal = document.getElementById('conceptModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
 $(document).ready(function() {
 
-  //$('#planetmap').append(localStorage.getItem('savedTags'));
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
   $.ajax({url: '/getImage'}).done(function (data) {
@@ -21,74 +11,14 @@ $(document).ready(function() {
     $('#imageMap').attr('src', imgFileName);
   });
 
-  /*
-  $("#imageMap").click(function(e){
-
-
-        var image_left = $(this).offset().left;
-        var click_left = e.pageX;
-        var left_distance = click_left - image_left;
-
-        var image_top = $(this).offset().top;
-        var click_top = e.pageY;
-        var top_distance = click_top - image_top;
-
-        var mapper_width = $('#mapper').width();
-        var imagemap_width = $('#imageMap').width();
-
-        var mapper_height = $('#mapper').height();
-        var imagemap_height = $('#imageMap').height();
-
-
-
-
-
-
-        if((top_distance + mapper_height > imagemap_height) && (left_distance + mapper_width > imagemap_width)){
-            $('#mapper').css("left", (click_left - mapper_width - image_left  ))
-            .css("top",(click_top - mapper_height - image_top  ))
-            .css("width","100px")
-            .css("height","100px")
-            .show();
-        }
-        else if(left_distance + mapper_width > imagemap_width){
-
-
-            $('#mapper').css("left", (click_left - mapper_width - image_left  ))
-            .css("top",top_distance)
-            .css("width","100px")
-            .css("height","100px")
-            .show();
-
-        }
-        else if(top_distance + mapper_height > imagemap_height){
-            $('#mapper').css("left", left_distance)
-            .css("top",(click_top - mapper_height - image_top  ))
-            .css("width","100px")
-            .css("height","100px")
-            .show();
-        }
-        else{
-
-
-            $('#mapper').css("left",left_distance)
-            .css("top",top_distance)
-            .css("width","100px")
-            .css("height","100px")
-            .show();
-        }
-
-
-        $("#mapper").resizable({ containment: "parent" });
-        $("#mapper").draggable({ containment: "parent" });
-
-    });
-    */
-
+  //load tags from the corresponding image id
+  $.ajax({url: '/loadTags'}).done(function (data) {
+    for(var i = 0; i < data.length; i++)
+    {
+      $('#planetmap').append(data[i].tagString);
+    }
+  });
 });
-
-
-
 
 $(".tagged").live("mouseover",function(){
     if($(this).find(".openDialog").length == 0){
