@@ -139,10 +139,17 @@ var addTag = function(){
     var pos_height = $('#mapper').height();
 
 
-    $('#planetmap').append('<div class="tagged"  style="width:'+pos_width+';height:'+
+    $('#planetmap').append('<div class="tagged" data-engSynsetIdHTML="" style="width:'+pos_width+';height:'+
         pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
         pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
         $("#title").val()+'</div></div>');
+
+    /*
+    var tagHTML = '<div class="tagged" style="width:'+pos_width+';height:'+
+        pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
+        pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
+        $("#title").val()+'</div></div>';
+    */
 
     //ajax to send word over
     var from = $('#from').val();
@@ -343,7 +350,10 @@ var closeModal = function() {
 var chooseDefinition = function(item) {
   var clickedId = $(item).attr('id');
   var index = clickedId.charAt(clickedId.length - 1);
-  console.log(conceptArr[index].english_concept.synset_ID_3_1);
+  $(".tagged").last().attr("data-engSynsetIdHTML", conceptArr[index].english_concept.synset_ID_3_1);
+  closeModal();
+
+  /*
   $.ajax({
     url: '/saveConcept',
     contentType: "application/json; charset=utf-8",
@@ -351,6 +361,8 @@ var chooseDefinition = function(item) {
     cache: false,
     data: { 'concept': conceptArr[index].english_concept.synset_ID_3_1},
   });
+  */
+
 };
 
 var goToImageTranslating = function() {
