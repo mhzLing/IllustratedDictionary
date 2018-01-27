@@ -196,6 +196,12 @@ var saveTags = function() {
 */
 
 var translateWords = function() {
+//save all tag html into array called tagArr using getElementByCLassName.
+//Run through tagArr using for loop. each loop has an ajax call.
+//ajax call to kamusi/pred/translate/id/from/to. save json data to array named
+//jsonArr.
+
+
   var from = $('#from').val();
   var to = $('#to').val();
   for(var i = 0; i < wordArr.length; i++)

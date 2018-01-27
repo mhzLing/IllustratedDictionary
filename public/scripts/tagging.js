@@ -279,6 +279,7 @@ var deleteTag = function(obj){
 // Save all tags present in the image panel to database.
 var saveTags = function() {
   var tagArr = document.getElementsByClassName('tagged');
+
   /* TRANSLATING BY WORDS
   var htmlArr = document.getElementsByClassName('tagged_title');
 
@@ -352,17 +353,6 @@ var chooseDefinition = function(item) {
   var index = clickedId.charAt(clickedId.length - 1);
   $(".tagged").last().attr("data-engSynsetIdHTML", conceptArr[index].english_concept.synset_ID_3_1);
   closeModal();
-
-  /*
-  $.ajax({
-    url: '/saveConcept',
-    contentType: "application/json; charset=utf-8",
-    type: 'GET',
-    cache: false,
-    data: { 'concept': conceptArr[index].english_concept.synset_ID_3_1},
-  });
-  */
-
 };
 
 var goToImageTranslating = function() {

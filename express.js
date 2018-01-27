@@ -109,11 +109,7 @@ conn.on('open',function() {
     });
   });
 
-  app.get('/saveConcept', function (req,res) {
-    console.log(req.query.concept);
-  });
 
-/* TRANSLATING BY WORDS
   app.get('/TranslateData', function (req, res) {
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
     console.log(url);
@@ -131,9 +127,6 @@ conn.on('open',function() {
       }
     });
   });
-  */
-
-
 
   app.get("/:filename",function(req,res){
     var readstream = gfs.createReadStream({filename: req.params.filename});
