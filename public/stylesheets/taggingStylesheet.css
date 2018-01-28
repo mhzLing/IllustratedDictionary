@@ -25,6 +25,7 @@ body{
     margin: auto;
     padding: 10px;
     width: 1000px;
+    position: relative;
 }
 #url_panel{
 
@@ -53,13 +54,22 @@ body{
 #image_panel{
     float:left;
     width:600px;
-    position:relative;
+    position: relative;
 }
 #image_panel img{
     left:0;top:-102px;
     max-width: 600px;
     overflow: hidden;
 
+}
+
+#translationbox {
+  float: right;
+  width: 150px;
+  margin: 0;
+  position: absolute;
+  right: 30px;
+  background-color: red;
 }
 
 
