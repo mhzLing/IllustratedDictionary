@@ -1,6 +1,5 @@
-var wordArr = [];
-var conceptArr = [];
 var tagArr = [];
+var jsonArr = [];
 
 $(document).ready(function() {
 
@@ -41,104 +40,6 @@ $(".tagged").live("mouseout",function(){
 
 });
 
-/*
-$(".tagged").live("click",function(){
-    $(this).find(".tagged_box").html("<img src='images/del.png' class='openDialog' value='Delete' onclick='deleteTag(this)' />\n\
-<img src='images/save.png' onclick='editTag(this);' value='Save' />");
-
-    var img_scope_top = $("#imageMap").offset().top + $("#imageMap").height() - $(this).find(".tagged_box").height();
-    var img_scope_left = $("#imageMap").offset().left + $("#imageMap").width() - $(this).find(".tagged_box").width();
-
-    $(this).draggable({ containment:[$("#imageMap").offset().left,$("#imageMap").offset().top,img_scope_left,img_scope_top]  });
-
-});
-*/
-/*
-var addTag = function(){
-  if( $("#title").val() != "" )
-  {
-    var position = $('#mapper').position();
-
-
-    var pos_x = position.left;
-    var pos_y = position.top;
-    var pos_width = $('#mapper').width();
-    var pos_height = $('#mapper').height();
-
-
-    $('#planetmap').append('<div class="tagged"  style="width:'+pos_width+';height:'+
-        pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
-        pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
-        $("#title").val()+'</div></div>');
-
-    //ajax to send word over
-    var from = $('#from').val();
-    var to = $('#to').val();
-    var word = $("#title").val();
-    $.ajax({
-      url: '/sendTerm',
-      contentType: "application/json; charset=utf-8",
-      type: 'GET',
-      cache: false,
-      data: { 'term': $("#title").val(), 'from': from, 'to': to},
-    }).done(function (data) {
-      conceptArr.length = data.length;
-      for(var i = 0; i < data.length; i++)
-      {
-        conceptArr[i] = data[i];
-        console.log(conceptArr[i]);
-        var definitionId = "definition" + i;
-        if(data[i].source_concept.gloss == "")
-        {
-          //console.log("No definition found.")
-          $(".concept-content").append(
-            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)" style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
-                ' term: ' + word + ', part of speech: undefined' +
-              '</h4>' +
-              '<p class="" style="padding: 0 0 0 10px;">' +
-                '<strong>definition:</strong> No definition found' +
-              '</p>' +
-            '</div>');
-        }
-        else
-        {
-          //console.log(sourceConceptArr[i]);
-          $(".concept-content").append(
-            '<div class="wnsynset" id=' + definitionId + ' onclick="chooseDefinition(this)"  style="background-color: #efdac1; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-              '<h4 class="" style="display: block; border-bottom: 2px solid #684235; padding-bottom: 10px; color: #a50000; text-align: center;">' +
-                ' term: ' + word + ', part of speech: ' + data[i].english_concept.ss_type +
-              '</h4>' +
-              '<p class="" style="padding: 0 0 0 10px;">' +
-                '<strong>definition:</strong> ' + data[i].source_concept.gloss +
-              '</p>' +
-            '</div>');
-        }
-
-      }
-    });
-
-    //close form panel and reset input box
-    $("#mapper").hide();
-    $("#title").val('');
-    $("#form_panel").hide();
-
-    showConcepts();
-  }
-  else
-  {
-    $("#mapper").hide();
-    $("#title").val('');
-    $("#form_panel").hide();
-  }
-};
-*/
-/*
-var openDialog = function(){
-    $("#form_panel").fadeIn("slow");
-};
-*/
-
 var showTags = function(){
     $(".tagged_box").css("display","block");
     $(".tagged").css("border","2px solid #EEE");
@@ -150,50 +51,6 @@ var hideTags = function(){
     $(".tagged").css("border","none");
     $(".tagged_title").css("display","none");
 };
-/*
-var editTag = function(obj){
-
-    $(obj).parent().parent().draggable( 'disable' );
-    $(obj).parent().parent().removeAttr( 'class' );
-    $(obj).parent().parent().addClass( 'tagged' );
-    $(obj).parent().parent().css("border","none");
-    $(obj).parent().css("display","none");
-    $(obj).parent().parent().find(".tagged_title").css("display","none");
-    $(obj).parent().html('');
-
-};
-
-var deleteTag = function(obj){
-    $(obj).parent().parent().remove();
-};
-
-// Save all tags present in the image panel to database.
-var saveTags = function() {
-  var tagArr = document.getElementsByClassName('tagged');
-
-
-  // remove tags associated to current image,
-  // then after delete ajax is done, it runs save ajax
-  $.ajax({
-    url: '/removeTags',
-  }).done(function (data) {
-    console.log("REMOVED TAGS");
-  //saving tags to database
-    for(var i = 0; i < tagArr.length; i++)
-    {
-      console.log(tagArr[i]);
-      $.ajax({
-        url: '/saveTags',
-        contentType: false,
-        type: 'GET',
-        cache: false,
-        data: { 'tags': tagArr[i].outerHTML},
-      });
-    }
-  });
-
-};
-*/
 
 var translateWords = function() {
 //save all tag html into array called tagArr using getElementByCLassName.
@@ -201,57 +58,22 @@ var translateWords = function() {
 //ajax call to kamusi/pred/translate/id/from/to. save json data to array named
 //jsonArr.
 
-
-  var from = $('#from').val();
+  tagArr = document.getElementsByClassName('tagged');
+  jsonArr.length = tagArr.length;
+  console.log("length: " + tagArr.length);
   var to = $('#to').val();
-  for(var i = 0; i < wordArr.length; i++)
+
+  for (var i = 0; i < tagArr.length; i++)
   {
-    console.log("i = " + i + "\n");
+    var ajaxUrl = 'https://kamusi.org/pred/translate/' + tagArr[i].getAttribute('data-engSynsetIdHTML') + '/eng_3_1/' + to;
     $.ajax({
-      url: '/TranslateData',
+      url: ajaxUrl,
       contentType: "application/json; charset=utf-8",
       type: 'GET',
       cache: false,
-      data: { 'word': wordArr[i], 'from': from, 'to': to },
+    }).done(function (data)
+    {
+      jsonArr[i] = data;
     });
   }
-/*
-  $.ajax({url: '/getTranslateData/test'}).done(function (data) {
-    $('body').replaceWith(data);
-  }); */
-
 };
-/*
-// Modal box that pops up when user creates a tag.
-// Modal box contains definitions for the tag word.
-var showConcepts = function() {
-    $(".modal").css("display","block");
-};
-
-// When the user clicks on <span> (x), close the modal
-var closeModal = function() {
-    $(".modal").css("display","none");
-    $(".concept-content").empty();
-};
-
-// All definition for the word of the tag is displayed in the modal box.
-// User can select a definition to associate with the specific tag.
-var chooseDefinition = function(item) {
-  var clickedId = $(item).attr('id');
-  var index = clickedId.charAt(clickedId.length - 1);
-  console.log(conceptArr[index].english_concept.synset_ID_3_1);
-  $.ajax({
-    url: '/saveConcept',
-    contentType: "application/json; charset=utf-8",
-    type: 'GET',
-    cache: false,
-    data: { 'concept': conceptArr[index].english_concept.synset_ID_3_1},
-  });
-};
-
-var goToImageTranslating = function() {
-  $.ajax({
-    url: '/imageTranslating',
-  });
-};
-*/

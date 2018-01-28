@@ -1,4 +1,3 @@
-var wordArr = [];
 var conceptArr = [];
 var tagArr = [];
 
@@ -144,13 +143,6 @@ var addTag = function(){
         pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
         $("#title").val()+'</div></div>');
 
-    /*
-    var tagHTML = '<div class="tagged" style="width:'+pos_width+';height:'+
-        pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
-        pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
-        $("#title").val()+'</div></div>';
-    */
-
     //ajax to send word over
     var from = $('#from').val();
     var to = $('#to').val();
@@ -280,17 +272,6 @@ var deleteTag = function(obj){
 var saveTags = function() {
   var tagArr = document.getElementsByClassName('tagged');
 
-  /* TRANSLATING BY WORDS
-  var htmlArr = document.getElementsByClassName('tagged_title');
-
-  wordArr.length = htmlArr.length;
-  for(var i = 0; i < htmlArr.length; i++)
-  {
-    wordArr[i] = htmlArr[i].innerHTML;
-    console.log(wordArr[i]);
-  }
-*/
-
   // remove tags associated to current image,
   // then after delete ajax is done, it runs save ajax
   $.ajax({
@@ -310,27 +291,6 @@ var saveTags = function() {
       });
     }
   });
-
-};
-
-var translateWords = function() {
-  var from = $('#from').val();
-  var to = $('#to').val();
-  for(var i = 0; i < wordArr.length; i++)
-  {
-    console.log("i = " + i + "\n");
-    $.ajax({
-      url: '/TranslateData',
-      contentType: "application/json; charset=utf-8",
-      type: 'GET',
-      cache: false,
-      data: { 'word': wordArr[i], 'from': from, 'to': to },
-    });
-  }
-/*
-  $.ajax({url: '/getTranslateData/test'}).done(function (data) {
-    $('body').replaceWith(data);
-  }); */
 
 };
 
