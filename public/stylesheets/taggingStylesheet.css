@@ -63,13 +63,20 @@ body{
 
 }
 
-#translationbox {
+#translation_box {
   float: right;
-  width: 150px;
+  width: 170px;
+  height: 450px;
   margin: 0;
   position: absolute;
-  right: 30px;
-  background-color: red;
+  right: 10px;
+  overflow-y: auto;
+  background-color: #AB3939;
+}
+
+#translation_entry {
+  background-color: #AB3939;
+  border: 1px solid #FFFFFF;
 }
 
 

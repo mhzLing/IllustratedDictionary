@@ -26,8 +26,6 @@ $(".tagged").live("mouseover",function(){
 
         $(this).find(".tagged_title").css("display","block");
     }
-
-
 });
 
 $(".tagged").live("mouseout",function(){
@@ -36,8 +34,31 @@ $(".tagged").live("mouseout",function(){
         $(this).css("border","none");
         $(this).find(".tagged_title").css("display","none");
     }
+});
 
+//this function will show corresponding translated words based on the tag clicked on the side.
+$(".tagged").live("click",function(){
+    $('#translation_box').empty();
 
+    var to = $('#to').val();
+    var ajaxUrl = 'https://kamusi.org/pred/translate/' + $(this).attr("data-engSynsetIdHTML") + '/eng_3_1/' + to;
+    console.log(to);
+    console.log(ajaxUrl);
+    $.ajax({
+      url: ajaxUrl,
+      contentType: "application/json; charset=utf-8",
+      type: 'GET',
+      cache: false,
+    }).done(function (data)
+    {
+      for(var i = 0; i < data[0].terms.length; i++)
+      {
+        data[0].terms[i].lemma_accent;
+        $("#translation_box").append(
+          '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+          data[0].terms[i].lemma_accent +'</div>');
+      }
+    });
 });
 
 var showTags = function(){
@@ -51,16 +72,17 @@ var hideTags = function(){
     $(".tagged").css("border","none");
     $(".tagged_title").css("display","none");
 };
-
+/*
 var translateWords = function() {
 //save all tag html into array called tagArr using getElementByCLassName.
 //Run through tagArr using for loop. each loop has an ajax call.
 //ajax call to kamusi/pred/translate/id/from/to. save json data to array named
 //jsonArr.
 
+  $('#translation_box').empty(); //clear all entries in the translation box
+
   tagArr = document.getElementsByClassName('tagged');
   jsonArr.length = tagArr.length;
-  console.log("length: " + tagArr.length);
   var to = $('#to').val();
 
   for (var i = 0; i < tagArr.length; i++)
@@ -77,3 +99,4 @@ var translateWords = function() {
     });
   }
 };
+*/
