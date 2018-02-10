@@ -87,31 +87,3 @@ var hideTags = function(){
     $(".tagged").css("border","none");
     $(".tagged_title").css("display","none");
 };
-/*
-var translateWords = function() {
-//save all tag html into array called tagArr using getElementByCLassName.
-//Run through tagArr using for loop. each loop has an ajax call.
-//ajax call to kamusi/pred/translate/id/from/to. save json data to array named
-//jsonArr.
-
-  $('#translation_box').empty(); //clear all entries in the translation box
-
-  tagArr = document.getElementsByClassName('tagged');
-  jsonArr.length = tagArr.length;
-  var to = $('#to').val();
-
-  for (var i = 0; i < tagArr.length; i++)
-  {
-    var ajaxUrl = 'https://kamusi.org/pred/translate/' + tagArr[i].getAttribute('data-engSynsetIdHTML') + '/eng_3_1/' + to;
-    $.ajax({
-      url: ajaxUrl,
-      contentType: "application/json; charset=utf-8",
-      type: 'GET',
-      cache: false,
-    }).done(function (data)
-    {
-      jsonArr[i] = data;
-    });
-  }
-};
-*/

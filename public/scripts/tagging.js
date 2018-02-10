@@ -314,9 +314,3 @@ var chooseDefinition = function(item) {
   $(".tagged").last().attr("data-engSynsetIdHTML", conceptArr[index].english_concept.synset_ID_3_1);
   closeModal();
 };
-
-var goToImageTranslating = function() {
-  $.ajax({
-    url: '/imageTranslating',
-  });
-};
