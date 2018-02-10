@@ -54,15 +54,23 @@ $(".tagged").live("click",function(){
       if(data.length == 0)
       {
         $("#translation_box").append(
-          '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+          '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border-radius: 10px; margin: 5px;">' +
           "No Translation Found" +'</div>');
       }
       else {
         for(var i = 0; i < data[0].terms.length; i++)
         {
-          $("#translation_box").append(
-            '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-            data[0].terms[i].lemma_accent +'</div>');
+          if( to == 'eng_3_0')
+          {
+            $("#translation_box").append(
+              '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border-radius: 10px; margin: 5px;">' +
+              data[0].terms[i].lemma +'</div>');
+          }
+          else {
+            $("#translation_box").append(
+              '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border-radius: 10px; margin: 5px;">' +
+              data[0].terms[i].lemma_accent +'</div>');
+          }
         }
       }
     });
