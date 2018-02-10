@@ -51,12 +51,19 @@ $(".tagged").live("click",function(){
       cache: false,
     }).done(function (data)
     {
-      for(var i = 0; i < data[0].terms.length; i++)
+      if(data.length == 0)
       {
-        data[0].terms[i].lemma_accent;
         $("#translation_box").append(
           '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
-          data[0].terms[i].lemma_accent +'</div>');
+          "No Translation Found" +'</div>');
+      }
+      else {
+        for(var i = 0; i < data[0].terms.length; i++)
+        {
+          $("#translation_box").append(
+            '<div class="translation_entry" style="background-color: #efdac1; height: 30px; padding: 4px; border: 2px solid #684235; border-radius: 10px; margin: 5px;">' +
+            data[0].terms[i].lemma_accent +'</div>');
+        }
       }
     });
 });
