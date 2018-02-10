@@ -28,6 +28,8 @@ $(document).ready(function() {
     }
   });
 
+    // When the image is clicked on, a tag box will appear at the mouse's location.
+    // The user can then adjust the size of the box.
     $("#imageMap").click(function(e){
 
         var image_left = $(this).offset().left;

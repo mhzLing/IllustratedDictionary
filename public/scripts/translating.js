@@ -37,7 +37,8 @@ $(".tagged").live("mouseout",function(){
     }
 });
 
-//this function will show corresponding translated words based on the tag clicked on the side.
+// This function will show corresponding translated words based on the tag clicked on the side.
+// When a tag is clicked, the translated words with the same concept will be shown in the box on the right of the image.
 $(".tagged").live("click",function(){
     $('#translation_box').empty();
 
