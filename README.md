@@ -7,4 +7,4 @@ Illustrated dictionary for Kamusi Project
 3. Open browser type ```localhost:3000``` in the url
 
 ### Step by step run through of the app
-1. 
+1. upload an image onto the app.
