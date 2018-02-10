@@ -16,16 +16,17 @@ var Grid = require('gridfs-stream');
 
 var logger = require('morgan');
 
-var imgFileName="";
+var imgFileName=""; //saves the name of the image. such as "dog.jpg". Used to load the image
 
-var currentImageId = "";
+var currentImageId = ""; //saves the unique id of each image to this var. Will be used when saving tags.
 
 conn.on('error', console.error.bind(console, 'connection error:'));
 conn.on('open',function() {
 
+//below var is the schema for a tag. Each tag contains the html code of that tag and the associated imageId
   var tagSchema = mongoose.Schema({
     tagString: String,
-    imageId: String
+    imageId: String //this is to load the correct tag for the image loaded.
   });
 
   var Tag = mongoose.model('Tag', tagSchema);
@@ -37,12 +38,11 @@ conn.on('open',function() {
   app.use(express.static(__dirname + '/public')); //static middleware
 
   app.get("/", function(req,res){
-    //renders a multipart/form-data form
-    res.render("home");
+    res.render("home");  //loads up home.ejs
   });
 
   app.post("/", upload.single("avatar"), function(req, res, next){
-    imgFileName = req.file.originalname;
+    imgFileName = req.file.originalname; //save the name of the file to be loaded.
     var writestream = gfs.createWriteStream({
       filename: req.file.originalname
     });
@@ -52,22 +52,27 @@ conn.on('open',function() {
       .on("err", function(){res.send("Error uploading image")})
       .pipe(writestream);
 
-    currentImageId = writestream.id.toString();
+    currentImageId = writestream.id.toString(); //save unique id to be used later.
   });
 
-  //test
+
+
+  //goes to imageTagging.ejs
   app.get("/imageTagging",function(req,res){
     res.render("imageTagging");
   });
 
+  //goes to imageTranslating.ejs
   app.get("/imageTranslating",function(req,res){
     res.render("imageTranslating");
   });
 
+  //gets the loaded image's name and returns it.
   app.get('/getImage', function (req, res) {
     res.send(imgFileName);
   });
 
+  //takes tag html and imageid and saves to mongoose schema. Then saves the schema to database
   app.get('/saveTags', function (req, res) {
     console.log(req.query.tags);
     var tagData = new Tag({
@@ -83,7 +88,8 @@ conn.on('open',function() {
     res.send('Sent tags');
   });
 
-
+  //The way we update tags is by deleting all old tags and then adding new ones.
+  //This function deletes all tags in the database that are linked the currentImageId
   app.get('/removeTags', function(req, res) {
     var tagResponse = Tag.remove({'imageId': currentImageId }, function(err) {
       if(err) {
@@ -93,12 +99,15 @@ conn.on('open',function() {
     res.send('delete tags');
   });
 
+
+  //Sends all tags to the client that have the currentImageId
   app.get('/loadTags', function(req, res) {
     Tag.find({ imageId: currentImageId}, function(err,tagData) {
       res.send(tagData);
     });
   });
 
+  //Takes a term and queries the api for the concept data. Then sends the concepts over to the client
   app.get('/sendTerm', function (req,res) {
     console.log(req.query.term);
     var url = 'https://kamusi.org/preD/termTranslate/' + req.query.term + '/' + req.query.from + '/' + req.query.to;
@@ -109,25 +118,7 @@ conn.on('open',function() {
     });
   });
 
-
-  app.get('/TranslateData', function (req, res) {
-    var url = 'https://kamusi.org/preD/termTranslate/' + req.query.word + '/' + req.query.from + '/' + req.query.to;
-    console.log(url);
-    request(url, function(error, response, body)
-    {
-      var json = JSON.parse(body);
-      if(json[0].target_terms[0] == undefined)
-      {
-        console.log("Undefined");
-      }
-      else
-      {
-        var strJSON = JSON.stringify(json[0].target_terms[0].lemma_accent);
-        console.log(strJSON);
-      }
-    });
-  });
-
+  //gets the image name in the url and returns the corresponding image.
   app.get("/:filename",function(req,res){
     var readstream = gfs.createReadStream({filename: req.params.filename});
     readstream.on("error", function(err){
