@@ -1,8 +1,9 @@
-var tagArr = [];
-var jsonArr = [];
+var tagArr = []; // All html of tags for the image is pulled from the database and saved in this array.
+var jsonArr = []; // All concept IDs for the image is pulled from the database and saved in this array.
 
 $(document).ready(function() {
 
+  // Load the selected image
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
   $.ajax({url: '/getImage'}).done(function (data) {

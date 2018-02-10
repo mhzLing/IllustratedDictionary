@@ -1,5 +1,5 @@
-var conceptArr = [];
-var tagArr = [];
+var conceptArr = []; // Temporary storage for concept IDs of tagged words to save into database.
+var tagArr = []; // Temporary storage for html of existing tags to save into database.
 
 // Get the modal
 var modal = document.getElementById('conceptModal');
@@ -12,6 +12,7 @@ var span = document.getElementsByClassName("close")[0];
 
 $(document).ready(function() {
 
+  // Load the selected image from home.ejs
   var baseUrl = "http://localhost:3000/";
   var imgFileName = "a";
   $.ajax({url: '/getImage'}).done(function (data) {
@@ -29,7 +30,6 @@ $(document).ready(function() {
 
     $("#imageMap").click(function(e){
 
-
         var image_left = $(this).offset().left;
         var click_left = e.pageX;
         var left_distance = click_left - image_left;
@@ -45,10 +45,6 @@ $(document).ready(function() {
         var imagemap_height = $('#imageMap').height();
 
 
-
-
-
-
         if((top_distance + mapper_height > imagemap_height) && (left_distance + mapper_width > imagemap_width)){
             $('#mapper').css("left", (click_left - mapper_width - image_left  ))
             .css("top",(click_top - mapper_height - image_top  ))
@@ -57,14 +53,11 @@ $(document).ready(function() {
             .show();
         }
         else if(left_distance + mapper_width > imagemap_width){
-
-
             $('#mapper').css("left", (click_left - mapper_width - image_left  ))
             .css("top",top_distance)
             .css("width","100px")
             .css("height","100px")
             .show();
-
         }
         else if(top_distance + mapper_height > imagemap_height){
             $('#mapper').css("left", left_distance)
@@ -74,15 +67,12 @@ $(document).ready(function() {
             .show();
         }
         else{
-
-
             $('#mapper').css("left",left_distance)
             .css("top",top_distance)
             .css("width","100px")
             .css("height","100px")
             .show();
         }
-
 
         $("#mapper").resizable({ containment: "parent" });
         $("#mapper").draggable({ containment: "parent" });
@@ -92,18 +82,14 @@ $(document).ready(function() {
 });
 
 
-
-
 $(".tagged").live("mouseover",function(){
     if($(this).find(".openDialog").length == 0){
         $(this).find(".tagged_box").css("display","block");
         $(this).css("border","2px solid #EEE");
-
         $(this).find(".tagged_title").css("display","block");
     }
-
-
 });
+
 
 $(".tagged").live("mouseout",function(){
     if($(this).find(".openDialog").length == 0){
@@ -111,8 +97,6 @@ $(".tagged").live("mouseout",function(){
         $(this).css("border","none");
         $(this).find(".tagged_title").css("display","none");
     }
-
-
 });
 
 $(".tagged").live("click",function(){
@@ -126,24 +110,26 @@ $(".tagged").live("click",function(){
 
 });
 
+// Runs when the user presses the 'checkmark' button on the newly made tag box.
+// Opens a dialog box to prompt user for a word to associate with the tag.
+// Then, a modal box will then pop up and the user must select a definition to associate with the word.
 var addTag = function(){
   if( $("#title").val() != "" )
   {
     var position = $('#mapper').position();
-
 
     var pos_x = position.left;
     var pos_y = position.top;
     var pos_width = $('#mapper').width();
     var pos_height = $('#mapper').height();
 
-
+    // Insert the newly made tag box inside the html
     $('#planetmap').append('<div class="tagged" data-engSynsetIdHTML="" style="width:'+pos_width+';height:'+
         pos_height+';left:'+pos_x+';top:'+pos_y+';" ><div class="tagged_box" style="width:'+pos_width+';height:'+
         pos_height+';display:none;" ></div><div class="tagged_title" style="top:'+(pos_height+5)+';display:none;" >'+
         $("#title").val()+'</div></div>');
 
-    //ajax to send word over
+    //ajax to send word over and get all possible definitions
     var from = $('#from').val();
     var to = $('#to').val();
     var word = $("#title").val();
@@ -154,15 +140,18 @@ var addTag = function(){
       cache: false,
       data: { 'term': $("#title").val(), 'from': from, 'to': to},
     }).done(function (data) {
+      // Save the return data (definitions) into the conceptArray.
       conceptArr.length = data.length;
       for(var i = 0; i < data.length; i++)
       {
         conceptArr[i] = data[i];
         console.log(conceptArr[i]);
         var definitionId = "definition" + i;
-        if(from == 'eng_3_0')
+
+        // A modal box will be created and all possible definitions will be added inside it.
+        if(from == 'eng_3_0') // If the currently selected language is English
         {
-          if(data[i].source_concept.definition == "")
+          if(data[i].source_concept.definition == "") // If no definition is found.
           {
             //console.log("No definition found.")
             $(".concept-content").append(
@@ -175,7 +164,7 @@ var addTag = function(){
                 '</p>' +
               '</div>');
           }
-          else
+          else // Definitions are found
           {
             //console.log(sourceConceptArr[i]);
             $(".concept-content").append(
@@ -189,9 +178,9 @@ var addTag = function(){
               '</div>');
             }
         }
-        else
+        else // If the currently selected language is not English
         {
-          if(data[i].source_concept.gloss == "")
+          if(data[i].source_concept.gloss == "") // If no definition is found.
           {
             //console.log("No definition found.")
             $(".concept-content").append(
@@ -204,7 +193,7 @@ var addTag = function(){
                 '</p>' +
               '</div>');
           }
-          else
+          else // Definitions are found
           {
             //console.log(sourceConceptArr[i]);
             $(".concept-content").append(
@@ -236,22 +225,28 @@ var addTag = function(){
   }
 };
 
+// The dialog box will ask the user for input to associate a word to the new tag.
+// Only runs when the 'checkmark' button is pressed after a new tag box is made.
 var openDialog = function(){
     $("#form_panel").fadeIn("slow");
 };
 
+// All unselected tags will be visible when the 'showTags' button is pressed.
 var showTags = function(){
     $(".tagged_box").css("display","block");
     $(".tagged").css("border","2px solid #EEE");
     $(".tagged_title").css("display","block");
 };
 
+// All outlined tags will be hidden from view, but not deleted.
 var hideTags = function(){
     $(".tagged_box").css("display","none");
     $(".tagged").css("border","none");
     $(".tagged_title").css("display","none");
 };
 
+// User can click on a newly made tag and have the option to move it to a new location only once.
+// Once it is moved, it cannot be moved again.
 var editTag = function(obj){
 
     $(obj).parent().parent().draggable( 'disable' );
@@ -264,21 +259,26 @@ var editTag = function(obj){
 
 };
 
+// When clicking on 'x' of the selected tag, that tag will be deleted.
 var deleteTag = function(obj){
     $(obj).parent().parent().remove();
 };
 
 // Save all tags present in the image panel to database.
 var saveTags = function() {
+  // Get all tags and save each of them as an element in the tagArray.
   var tagArr = document.getElementsByClassName('tagged');
 
-  // remove tags associated to current image,
-  // then after delete ajax is done, it runs save ajax
+  // Remove previously saved tags associated to current image,
+  // then replace them with new/current tags in the image.
+
+  // Remove old tags
   $.ajax({
     url: '/removeTags',
   }).done(function (data) {
     console.log("REMOVED TAGS");
-  //saving tags to database
+
+  // Save current tags 1 by 1 to database
     for(var i = 0; i < tagArr.length; i++)
     {
       console.log(tagArr[i]);
